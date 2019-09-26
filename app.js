@@ -8,10 +8,10 @@ app.use(express.static(__dirname + "/public"));
 app.use(express.urlencoded({ extended: false }));
 
 app.get('/', (req, res, next) => {
-  res.send('hello world')
+  res.send('')
 })
 
-const PORT = 1337;
+const PORT = 3000;
 
 app.listen(PORT, () => {
   console.log(`App listening in port ${PORT}`);
