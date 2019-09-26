@@ -13,13 +13,23 @@ const Page = db.define('page', {
       allowNull: false
     },
     content: {
-      type: Sequelize.TEXT         
+      type: Sequelize.TEXT
     },
     status:{
-      type: Sequelize.ENUM('open','closed')     
+      type: Sequelize.ENUM('open','closed')
     }
 
   });
+
+  Page.beforeValidate((pageInstance, optionsObject) => {
+    function generateSlug (title) {
+      // Removes all non-alphanumeric characters from title
+      // And make whitespace underscore
+      return title.replace(/\s+/g, '_').replace(/\W/g, '');
+    }
+    pageInstance.slug = generateSlug(pageInstance.title);
+  })
+
   const User = db.define('user', {
     name: {
       type: Sequelize.STRING,
@@ -33,7 +43,7 @@ const Page = db.define('page', {
       }
     }
   });
-  
+
 
 
 module.exports = {
